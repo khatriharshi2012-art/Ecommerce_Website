@@ -1,16 +1,49 @@
-# React + Vite
+# DNK Ecommerce Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React + Vite ecommerce storefront with catalogue browsing, cart, wishlist, checkout, order history, live order tracking, and product ratings after delivery.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- React 19
+- React Router
+- Vite
+- Bootstrap
+- LocalStorage for demo persistence
 
-## React Compiler
+## Run Locally
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm install
+npm run dev
+```
 
-## Expanding the ESLint configuration
+Open the local URL printed by Vite, usually:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```text
+http://127.0.0.1:5173/
+```
+
+## Useful Scripts
+
+```bash
+npm run dev
+npm run build
+npm run lint
+npm run preview
+```
+
+## Main Features
+
+- Product listing pages for Everything, Men, Women, and Kids
+- Product details with size selection, wishlist, cart, and reviews
+- Protected cart, checkout, wishlist, order history, and order tracking pages
+- Fake payment modal for testing checkout
+- Real-time order status based on order date
+- Product rating after an order is delivered
+- Styled toast and confirm popups across the app
+
+## Notes
+
+This project uses `localStorage`, so order and account data are stored only in the browser used for testing. Clear browser storage to reset demo data.
+
+For a deeper project map, see [PROJECT_GUIDE.md](./PROJECT_GUIDE.md).

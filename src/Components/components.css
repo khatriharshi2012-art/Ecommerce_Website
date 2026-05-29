@@ -120,6 +120,15 @@
   cursor: pointer;
 }
 
+.account-wrapper.mobile-fixed {
+  display: none;
+}
+
+.mobile-account-trigger,
+.mobile-account-panel {
+  display: none;
+}
+
 .account-dropdown {
   position: absolute;
   top: 120%;
@@ -168,6 +177,21 @@
 .account-icon {
   cursor: pointer;
   user-select: none;
+  border: none;
+  background: transparent;
+  color: inherit;
+}
+
+.nav-link,
+.account-icon,
+.cart-icon .nav-link {
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.nav-link:hover,
+.account-icon:hover,
+.cart-icon .nav-link:hover {
+  transform: translateY(-2px);
 }
 
 .navbar-inner .nav-item .nav-link{
@@ -219,6 +243,38 @@
 
 .navbar-inner .navbar-toggler {
   border-color: rgba(255, 255, 255, 0.7);
+}
+
+.navbar-home .navbar-toggler,
+.navbar-inner .navbar-toggler {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border-radius: 10px;
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.navbar-home .navbar-toggler {
+  border: 1px solid #bfdbfe;
+  background: #eef8ff;
+}
+
+.navbar-home .navbar-toggler-icon,
+.navbar-inner .navbar-toggler-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.navbar-home .navbar-toggler:hover {
+  border-color: #0075be;
+  background: #e0f2fe;
+}
+
+.navbar-inner .navbar-toggler:hover {
+  background: rgba(255, 255, 255, 0.14);
 }
 
 .navbar-inner .navbar-toggler:focus,
@@ -274,6 +330,14 @@
 .latest-info h4 {
   font-size: 1rem;
   margin-bottom: 0.3rem;
+}
+
+.swiper-button-prev{
+  color: black;
+}
+
+.swiper-button-next{
+  color: black;
 }
 
 .product-card {
@@ -340,6 +404,7 @@
 .details-btn:hover,
 .wishlist-btn:hover {
   background-color : #0075be;
+  color:  white;
 }
 
 .product-link,
@@ -372,6 +437,7 @@
 }
 
 @media (max-width: 1200px) {
+  
   .ps {
     padding-inline: 48px;
   }
@@ -392,17 +458,19 @@
     position: relative !important;
   }
 
-  .n {
+  /* .n {
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.38), rgba(0, 0, 0, 0));
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 100;;
-  }
+  } */
 
   .navbar-home .navbar-collapse,
    .navbar-collapse {
+    flex-basis: 100%;
+    width: 100%;
     margin-top: 14px;
     padding: 16px;
     border-radius: 14px;
@@ -410,8 +478,8 @@
   }
 
  .navbar-inner {
-    position: absolute !important;
-    background: transparent;
+    position: relative !important;
+    background-color: #0075be;
 }
 
   .navbar-home .navbar-collapse {
@@ -437,13 +505,28 @@
   .navbar-inner .nav-link,
   .navbar-home .account-icon,
   .navbar-inner .account-icon {
-    display: block;
-    padding: 0.7rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0.7rem 0.9rem;
+    border-radius: 8px;
   }
 
   .navbar-home .cart-icon .nav-link,
   .navbar-inner .cart-icon .nav-link {
+    width: fit-content;
+    margin-inline: auto;
     justify-content: center;
+    gap: 10px;
+    padding-inline: 0.9rem;
+  }
+
+  .navbar-home .nav-link:hover,
+  .navbar-inner .nav-link:hover,
+  .navbar-home .nav-link.active,
+  .navbar-inner .nav-link.active {
+    background: rgba(0, 117, 190, 0.08);
   }
 
   .account-dropdown {
@@ -469,6 +552,91 @@
   .latest-grid {
     grid-template-columns: repeat(3, 1fr);
   }
+
+  .account-wrapper.desktop-account {
+    display: none;
+  }
+
+  .account-wrapper.mobile-fixed {
+    display: block;
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    width: auto !important;
+    z-index: 1600;
+  }
+
+  .account-wrapper.mobile-fixed .mobile-account-trigger {
+    width: 52px;
+    height: 52px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0084d6, #0075be);
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 14px 34px rgba(0, 117, 190, 0.34);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .account-wrapper.mobile-fixed .mobile-account-trigger:hover {
+    transform: translateY(-4px) scale(1.04);
+    box-shadow: 0 18px 42px rgba(0, 117, 190, 0.42);
+  }
+
+  .account-wrapper.mobile-fixed .mobile-account-panel {
+    display: block;
+    position: absolute;
+    right: 0;
+    bottom: calc(100% + 12px);
+    min-width: 230px;
+    padding: 8px;
+    border: 1px solid #d8dee8;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.18);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px) scale(0.98);
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+  }
+
+  .account-wrapper.mobile-fixed .mobile-account-panel.open {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+
+  .mobile-account-panel a,
+  .mobile-account-panel button {
+    display: block;
+    width: 100%;
+    padding: 11px 12px;
+    border: none;
+    border-radius: 7px;
+    background: transparent;
+    color: #111827;
+    text-align: left;
+    text-decoration: none;
+  }
+
+  .mobile-account-panel a:hover,
+  .mobile-account-panel button:hover {
+    background: #eef8ff;
+    color: #0075be;
+  }
+
+  .account-wrapper.mobile-fixed .user-name {
+    margin: 0 0 4px;
+    padding: 10px 12px;
+    border-bottom: 1px solid #e5e7eb;
+    color: #0075be;
+  }
 }
 
 @media (max-width: 768px) {
@@ -487,7 +655,7 @@
   }
 
   .price-text {
-    margin-right: 0;
+    margin-right: 10px;
   }
 
   .cart-icon .nav-link {
@@ -498,9 +666,9 @@
 
   .navbar-home .cart-count,
   .navbar-inner .cart-count {
-    top: -2px;
-    right: auto;
-    left: calc(50% + 28px);
+    top: 3px;
+    right: 0;
+    left: auto;
   }
 
   .latest-container {

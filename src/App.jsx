@@ -1,27 +1,27 @@
-import './App.css'
-import Home from './pages/Home'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Navbar2 from './Components/Navbar2'
-import Everything from './pages/Everything'
-import Women from './pages/Women'
-import Men from './pages/Men'
-import ProductDetails from './pages/ProductDetails'
-import Footer from './Components/Footer'
-import Kids from './pages/Kids'
-import About from './pages/About'
-import Contact from './pages/Contact'
-import Checkout from './pages/Checkout'
-import PlaceOrder from './pages/PlaceOrder'
-import OrderSuccess from './pages/OrderSuccess'
-import OrderTracking from './pages/OrderTracking'
-import OrderHistory from './pages/OrderHistory'
-import Login from './pages/Login'
+import "./App.css";
+import Home from "./pages/Home";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Navbar2 from "./Components/Navbar2";
+import Everything from "./pages/Everything";
+import Women from "./pages/Women";
+import Men from "./pages/Men";
+import ProductDetails from "./pages/ProductDetails";
+import Footer from "./Components/Footer";
+import Kids from "./pages/Kids";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import Checkout from "./pages/Checkout";
+import PlaceOrder from "./pages/PlaceOrder";
+import OrderSuccess from "./pages/OrderSuccess";
+import OrderHistory from "./pages/OrderHistory";
+import OrderTracking from "./pages/OrderTracking";
+import Login from "./pages/Login";
 import { CartProvider } from "./context/CartContext";
-import Cart from './pages/Cart'
-import Navbar from './Components/Navbar'
-import Wishlist from './pages/Wishlist'
-import ProtectedRoute from './Components/ProtectedRoute'
-import ScrollManager from './Components/ScrollManager'
+import Cart from "./pages/Cart";
+import Navbar from "./Components/Navbar";
+import Wishlist from "./pages/Wishlist";
+import ProtectedRoute from "./Components/ProtectedRoute";
+import ScrollManager from "./Components/ScrollManager";
 
 function App() {
   return (
@@ -29,13 +29,13 @@ function App() {
       <BrowserRouter>
         <ScrollManager />
         <Routes>
-          <Route path='/' element={<Navbar2/>}>
+          <Route path="/" element={<Navbar2 />}>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
           </Route>
 
-          <Route path='/' element={<Navbar/>}>
+          <Route path="/" element={<Navbar />}>
             <Route path="/everything" element={<Everything />} />
             <Route path="/women" element={<Women />} />
             <Route path="/men" element={<Men />} />
@@ -74,14 +74,6 @@ function App() {
               }
             />
             <Route
-              path="/order-tracking/:id"
-              element={
-                <ProtectedRoute message="Please login first to track your order.">
-                  <OrderTracking />
-                </ProtectedRoute>
-              }
-            />
-            <Route
               path="/orders"
               element={
                 <ProtectedRoute message="Please login first to view your orders.">
@@ -89,9 +81,17 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            <Route
+              path="/order-tracking/:id"
+              element={
+                <ProtectedRoute message="Please login first to track your order.">
+                  <OrderTracking />
+                </ProtectedRoute>
+              }
+            />
             <Route path="/login" element={<Login />} />
             <Route
-              path='/wishlist'
+              path="/wishlist"
               element={
                 <ProtectedRoute message="Please login first to view your wishlist.">
                   <Wishlist />
@@ -103,7 +103,7 @@ function App() {
         <Footer />
       </BrowserRouter>
     </CartProvider>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -3,18 +3,14 @@ import "./pages.css";
 import { useNavigate } from "react-router-dom";
 import { formatPrice, getPrimaryImage } from "../utils/format";
 import useRequireAuth from "../hooks/useRequireAuth";
+import { useNotification } from "../context/NotificationContext";
 
 const Cart = () => {
+  const navigate = useNavigate();
+  const { requireAuth } = useRequireAuth();
+  const { confirm, notify } = useNotification();
 
-    const navigate = useNavigate();
-    const { requireAuth } = useRequireAuth();
-
-  const {
-    cartItems,
-    removeFromCart,
-    updateQuantity,
-    totalPrice
-  } = useCart();
+  const { cartItems, removeFromCart, updateQuantity, totalPrice } = useCart();
 
   const shippingFee = cartItems.length > 0 ? 10 : 0;
   const finalTotal = totalPrice + shippingFee;
@@ -26,7 +22,7 @@ const Cart = () => {
     }
 
     if (isCartEmpty) {
-      alert("Your cart is empty. Add a product before checkout.");
+      notify("Your cart is empty. Add a product before checkout.", "error");
       return;
     }
 
@@ -41,49 +37,53 @@ const Cart = () => {
         <div className="cart-items">
           {cartItems.map((item) => (
             <div className="cart-item" key={item._id + item.size}>
-                <div className="cart-large">
+              <div className="cart-large">
                 <img
-                    src={getPrimaryImage(item.image)}
-                    alt={item.name}
-                    className="cart-img"
+                  src={getPrimaryImage(item.image)}
+                  alt={item.name}
+                  className="cart-img"
                 />
 
                 <div className="cart-details">
-                    <h4>{item.name}</h4>
-                    <p>{formatPrice(item.price)}</p>
-                    <span className="size">{item.size}</span>
+                  <h4>{item.name}</h4>
+                  <p>{formatPrice(item.price)}</p>
+                  <span className="size">{item.size}</span>
                 </div>
-                </div>
+              </div>
 
-            <div className="cart-qty">
-              <input
-                type="number"
-                min="1"
-                value={item.quantity}
-                onChange={(e) => {
-                  const nextQuantity = Number(e.target.value);
+              <div className="cart-qty">
+                <input
+                  type="number"
+                  min="1"
+                  value={item.quantity}
+                  onChange={(e) => {
+                    const nextQuantity = Number(e.target.value);
 
-                  if (nextQuantity < 1) {
-                    alert("Quantity must be at least 1.");
-                    return;
-                  }
+                    if (nextQuantity < 1) {
+                      notify("Quantity must be at least 1.", "error");
+                      return;
+                    }
 
-                  updateQuantity(
-                    item._id,
-                    item.size,
-                    nextQuantity
-                  );
-                }}
-              />
-            </div>
-              
+                    updateQuantity(item._id, item.size, nextQuantity);
+                  }}
+                />
+              </div>
 
               <button
                 className="delete-btn"
-                onClick={() => {
-                  if (window.confirm("Remove this product from your cart?")) {
+                onClick={async () => {
+                  const shouldRemove = await confirm(
+                    "Remove this product from your cart?",
+                    {
+                      title: "Remove Product",
+                      confirmText: "Remove",
+                      tone: "danger",
+                    },
+                  );
+
+                  if (shouldRemove) {
                     removeFromCart(item._id, item.size);
-                    alert("Product removed from cart.");
+                    notify("Product removed from cart.");
                   }
                 }}
               >
@@ -111,12 +111,12 @@ const Cart = () => {
             <span>{formatPrice(finalTotal)}</span>
           </div>
 
-           <button
+          <button
             className={`checkout-btn ${isCartEmpty ? "button-disabled" : ""}`}
             onClick={handleProceedToCheckout}
-            >
+          >
             PROCEED TO CHECKOUT
-            </button>
+          </button>
         </div>
       </div>
     </div>

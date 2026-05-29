@@ -18,11 +18,15 @@ const Contact = () => {
   useEffect(() => {
     if (!user) return;
 
-    setFormData((prev) => ({
-      ...prev,
-      name: prev.name || user.name || "",
-      email: prev.email || user.email || "",
-    }));
+    const timeoutId = window.setTimeout(() => {
+      setFormData((prev) => ({
+        ...prev,
+        name: prev.name || user.name || "",
+        email: prev.email || user.email || "",
+      }));
+    }, 0);
+
+    return () => window.clearTimeout(timeoutId);
   }, [user]);
 
   const handleChange = (event) => {
@@ -59,7 +63,7 @@ const Contact = () => {
 
   return (
     <>
-      <div className="container-fluid bgi2 text-white p-0 m-0 pb-lg-5">
+      <div className="container-fluid bgi2 text-white p-0 m-0 pb-lg-5 align-content-center">
         <div className="col-md-6 mx-auto text-center p-5 align-center ">
           <p className="display-2 ">
             <b>Contact Us</b>
@@ -68,32 +72,32 @@ const Contact = () => {
       </div>
 
       <div className="container-fluid clr1">
-        <div className="container-lg mx-auto row p-0">
-          <div className="col-md-12">
+        <div className="container-xl mx-auto row p-0">
+          <div className="col-xl-12">
             <div className="col-md-6 p-5 mx-auto text-center">
               <h6>Have any queries?</h6>
               <h1>We're here to help</h1>
             </div>
 
-            <div className="col-md-12 d-flex justify-content-between text-center flex-wrap p-lg-5 contact-card-grid">
+            <div className="col-xl-12 col-12 d-md-flex text-center p-lg-5 contact-card-grid">
               <div className="div2 border p-4 rounded-3 bg-white">
                 <h3>Sales</h3>
-                <p>Vestibulum ante ipsum primis in faucibus orci luctus.</p>
+                <p>Need help choosing a product, size, or offer? Our styling team can guide you before checkout.</p>
                 <h5 className="text-primary">1800 123 4567</h5>
               </div>
               <div className="div2 border p-4 rounded-3 bg-white">
                 <h3>Complaints</h3>
-                <p>Vestibulum ante ipsum primis in faucibus orci luctus.</p>
+                <p>Tell us what went wrong with an order, delivery, or product experience so we can fix it quickly.</p>
                 <h5 className="text-primary">1900 223 8899</h5>
               </div>
               <div className="div2 border p-4 rounded-3 bg-white">
                 <h3>Returns</h3>
-                <p>Vestibulum ante ipsum primis in faucibus orci luctus.</p>
-                <h5 className="text-primary">return@.mail.com</h5>
+                <p>Start a return, exchange a size, or ask about refund timelines for your recent StyleStore order.</p>
+                <h5 className="text-primary">returns@stylestore.com</h5>
               </div>
               <div className="div2 border p-4 rounded-3 bg-white">
-                <h3>Marketing</h3>
-                <p>Vestibulum ante ipsum primis in faucibus orci luctus.</p>
+                <h3>Partnerships</h3>
+                <p>For brand collaborations, creator campaigns, and business inquiries, connect with our team.</p>
                 <h5 className="text-primary">1700 444 5578</h5>
               </div>
             </div>
@@ -102,13 +106,13 @@ const Contact = () => {
       </div>
 
       <div className="container-fluid clr1">
-        <div className="container-lg mx-auto row p-0 m-0">
+        <div className="container-xl mx-auto row p-0 m-0">
           <div className="col-md-12 row p-lg-5 m-0 align-items-stretch">
             <div className="col-md-6 p-lg-4 pe-lg-5 pt-5 text-center text-lg-start p-0 m-0">
               <h6>Don't be a stranger!</h6>
               <h1>You tell us. We listen.</h1>
               <p className="mt-3">
-                Cras elementum finibus lacus nec lacinia. Quisque non convallis nisl, eu condimentum sem. Proin dignissim libero lacus, ut eleifend magna vehicula et. Nam mattis est sed tellus.
+                Whether you have a question about sizing, delivery, returns, payments, or an active order, send us the details and we will route your message to the right support specialist.
               </p>
             </div>
 

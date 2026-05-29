@@ -22,27 +22,27 @@ function Carousel() {
             }}
         >
             <SwiperSlide>
-                <img src="img/logo1.jpg" className="img-fluid" />
+                <img src="img/logo1.jpg" className="img-fluid m-auto" />
             </SwiperSlide>
 
             <SwiperSlide>
-                <img src="img/logo2.jpg" className="img-fluid" />
+                <img src="img/logo2.jpg" className="img-fluid m-auto" />
             </SwiperSlide>
 
             <SwiperSlide>
-                <img src="img/logo3.jpg" className="img-fluid" />
+                <img src="img/logo3.jpg" className="img-fluid m-auto" />
             </SwiperSlide>
 
             <SwiperSlide>
-                <img src="img/logo4.jpg" className="img-fluid" />
+                <img src="img/logo4.jpg" className="img-fluid m-auto" />
             </SwiperSlide>
 
             <SwiperSlide>
-                <img src="img/logo1.jpg" className="img-fluid" />
+                <img src="img/logo1.jpg" className="img-fluid m-auto" />
             </SwiperSlide>
 
             <SwiperSlide>
-                <img src="img/logo2.jpg" className="img-fluid" />
+                <img src="img/logo2.jpg" className="img-fluid m-auto" />
             </SwiperSlide>
         </Swiper>
         </div>

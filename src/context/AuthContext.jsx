@@ -1,9 +1,10 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useState, useEffect } from "react";
 import { readStorage, writeStorage } from "../utils/storage";
+import { notifyGlobal } from "./NotificationContext";
 
 const AuthContext = createContext();
-const SESSION_TIME = 30 * 60 * 1000; // 30 min
+const SESSION_TIME = 24 * 60 * 60 * 1000; // 1 day
 
 const normalizeValue = (value = "") => value.trim().toLowerCase();
 const GOOGLE_PROVIDER = "google";
@@ -27,15 +28,17 @@ export const AuthProvider = ({ children }) => {
 
     const remainingTime = user.expiry - Date.now();
     if (remainingTime <= 0) {
-      setUser(null);
-      localStorage.removeItem("user");
-      return undefined;
+      const timeoutId = window.setTimeout(() => {
+        setUser(null);
+        localStorage.removeItem("user");
+      }, 0);
+      return () => window.clearTimeout(timeoutId);
     }
 
     const timeoutId = window.setTimeout(() => {
       setUser(null);
       localStorage.removeItem("user");
-      alert("Your session expired. Please login again.");
+      notifyGlobal("Your session expired. Please login again.", "error");
     }, remainingTime);
 
     return () => window.clearTimeout(timeoutId);

@@ -12,15 +12,16 @@ function Navbar() {
   const closeMenu = () => setMenuOpen(false);
 
   useEffect(() => {
-    closeMenu();
+    const timeoutId = window.setTimeout(closeMenu, 0);
+    return () => window.clearTimeout(timeoutId);
   }, [location.pathname]);
 
   return (
     <>
-      <nav className="navbar n navbar-expand-md navbar-inner accordion">
-        <div className="container-fluid ps px-5">
+      <nav className="navbar n navbar-expand-xl navbar-inner accordion">
+        <div className="container-fluid ps px-md-5">
           <NavLink className="navbar-brand" to="/" onClick={closeMenu}>
-            <img src="/img/logo5.jpg" alt="Logo" className="nav-logo" />
+            <img src="/img/logo.jpg" alt="Logo" className="nav-logo" />
           </NavLink>
           <button
             className={`navbar-toggler navbar-inner-toggler ${menuOpen ? "" : "collapsed"}`}
@@ -81,11 +82,12 @@ function Navbar() {
                 </Link>
               </li>
 
-              <AccountMenu onAction={closeMenu} />
+              <AccountMenu variant="desktop-account" onAction={closeMenu} />
             </ul>
           </div>
         </div>
       </nav>
+      <AccountMenu variant="mobile-fixed" />
 
       <Outlet />
     </>

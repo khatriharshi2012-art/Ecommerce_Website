@@ -43,16 +43,23 @@ function AccountMenu({ variant = "default", onAction }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const WrapperTag = variant === "mobile-fixed" ? "div" : "li";
+
+  const isMobileFixed = variant === "mobile-fixed";
+
   return (
-    <li className={`nav-item account-wrapper ${variant}`} ref={menuRef}>
-      <span
-        className="nav-link account-icon"
-        onClick={() => setOpen(!open)}
+    <WrapperTag className={`nav-item account-wrapper ${variant}`} ref={menuRef}>
+      <button
+        type="button"
+        className={isMobileFixed ? "mobile-account-trigger" : "nav-link account-icon"}
+        aria-expanded={open}
+        aria-label="Open account menu"
+        onClick={() => setOpen((current) => !current)}
       >
         <i className="fa-solid fa-user"></i>
-      </span>
+      </button>
 
-      <div className={`account-dropdown ${open ? "open" : ""}`}>
+      <div className={`${isMobileFixed ? "mobile-account-panel" : "account-dropdown"} ${open ? "open" : ""}`}>
         {!user ? (
           <>
             <Link to="/login" onClick={handleMenuAction}>
@@ -75,7 +82,7 @@ function AccountMenu({ variant = "default", onAction }) {
           </>
         )}
       </div>
-    </li>
+    </WrapperTag>
   );
 }
 

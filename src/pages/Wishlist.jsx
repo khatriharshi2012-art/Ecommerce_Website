@@ -1,11 +1,13 @@
 import { useWishlist } from "../context/WishlistContext";
 import ProductCard from "../Components/ProductCard";
 import { Link, useNavigate } from "react-router-dom";
+import { useNotification } from "../context/NotificationContext";
 import "./pages.css";
 
 const Wishlist = () => {
   const { wishlist } = useWishlist();
   const navigate = useNavigate();
+  const { notify } = useNotification();
 
   if (wishlist.length === 0) {
     return (
@@ -16,7 +18,7 @@ const Wishlist = () => {
           type="button"
           className="wishlist-browse-btn"
           onClick={() => {
-            alert("Taking you to the products page.");
+            notify("Taking you to the products page.");
             navigate("/everything");
           }}
         >

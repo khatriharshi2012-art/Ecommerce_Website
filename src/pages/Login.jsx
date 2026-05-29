@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { useNotification } from "../context/NotificationContext";
 import "./pages.css";
 
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
@@ -17,8 +18,9 @@ const decodeJwtPayload = (token) => {
 };
 
 const Login = () => {
-  const { user, login, signup, googleLogin, resetPassword, sessionDuration } =
+  const { user, login, signup, googleLogin, resetPassword } =
     useAuth();
+  const { notify } = useNotification();
   const navigate = useNavigate();
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -45,10 +47,14 @@ const Login = () => {
   }, [navigate, redirectUrl, user]);
 
   useEffect(() => {
-    const mode = searchParams.get("mode");
-    setIsLogin(mode !== "signup");
-    setShowForgotPassword(false);
-    setErrorMessage(location.state?.authMessage || "");
+    const timeoutId = window.setTimeout(() => {
+      const mode = searchParams.get("mode");
+      setIsLogin(mode !== "signup");
+      setShowForgotPassword(false);
+      setErrorMessage(location.state?.authMessage || "");
+    }, 0);
+
+    return () => window.clearTimeout(timeoutId);
   }, [location.state, searchParams]);
 
   useEffect(() => {
@@ -189,7 +195,7 @@ const Login = () => {
       return;
     }
 
-    alert("Password updated successfully!");
+    notify("Password updated successfully.");
     setShowForgotPassword(false);
     setPassword("");
     setResetEmail("");

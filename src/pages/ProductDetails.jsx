@@ -5,7 +5,9 @@ import ProductCard from "../Components/ProductCard";
 import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
 import { formatPrice } from "../utils/format";
+import { getProductReviews } from "../utils/orders";
 import useRequireAuth from "../hooks/useRequireAuth";
+import { useNotification } from "../context/NotificationContext";
 import "./pages.css";
 
 const ProductDetailsContent = ({ id }) => {
@@ -15,6 +17,7 @@ const ProductDetailsContent = ({ id }) => {
   const { addToCart } = useCart();
   const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
   const { requireAuth } = useRequireAuth();
+  const { notify } = useNotification();
 
   const [mainImage, setMainImage] = useState(product?.image[0] || "");
   const [selectedSize, setSelectedSize] = useState("");
@@ -24,6 +27,12 @@ const ProductDetailsContent = ({ id }) => {
   if (!product) return <p style={{ padding: "20px" }}>Product not found</p>;
 
   const isWishlisted = wishlist.some((p) => p._id === product._id);
+  const productReviews = getProductReviews(product._id);
+  const averageRating =
+    productReviews.length > 0
+      ? productReviews.reduce((sum, review) => sum + review.rating, 0) /
+        productReviews.length
+      : 0;
 
   const handleWishlist = () => {
     if (!requireAuth("Please login first to use your wishlist.")) {
@@ -32,12 +41,12 @@ const ProductDetailsContent = ({ id }) => {
 
     if (isWishlisted) {
       removeFromWishlist(product._id);
-      alert("Product removed from wishlist.");
+      notify("Product removed from wishlist.");
       return;
     }
 
     addToWishlist(product);
-    alert("Product added to wishlist.");
+    notify("Product added to wishlist.");
   };
 
   const relatedProducts = products
@@ -78,7 +87,7 @@ const ProductDetailsContent = ({ id }) => {
           <div className="title-wishlist">
             <h2>{product.name}</h2>
 
-            <button className="wishlist-btn" onClick={handleWishlist}>
+            <button className="wishlist-btn2" onClick={handleWishlist}>
               {isWishlisted ? "♥" : "♡"}
             </button>
           </div>
@@ -123,9 +132,12 @@ const ProductDetailsContent = ({ id }) => {
                 return;
               }
 
-              if (!selectedSize) return alert("Select a size!");
+              if (!selectedSize) {
+                notify("Select a size first.", "error");
+                return;
+              }
               addToCart(product, selectedSize, quantity);
-              alert("Product added to cart.");
+              notify("Product added to cart.");
             }}
           >
             Add to Cart
@@ -151,7 +163,44 @@ const ProductDetailsContent = ({ id }) => {
 
         <div className="tabs-content">
           {activeTab === "description" && <p>{product.description}</p>}
-          {activeTab === "reviews" && <p>No reviews yet.</p>}
+          {activeTab === "reviews" && (
+            <div className="product-reviews">
+              {productReviews.length === 0 ? (
+                <p>No reviews yet.</p>
+              ) : (
+                <>
+                  <div className="review-summary">
+                    <strong>{averageRating.toFixed(1)} / 5</strong>
+                    <span>
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <i
+                          key={star}
+                          className={star <= Math.round(averageRating) ? "is-filled" : ""}
+                        >
+                          {"\u2605"}
+                        </i>
+                      ))}
+                    </span>
+                    <small>{productReviews.length} rating{productReviews.length > 1 ? "s" : ""}</small>
+                  </div>
+                  <div className="review-list">
+                    {productReviews.map((review) => (
+                      <div key={review.id} className="review-item">
+                        <span>
+                          {[1, 2, 3, 4, 5].map((star) => (
+                            <i key={star} className={star <= review.rating ? "is-filled" : ""}>
+                              {"\u2605"}
+                            </i>
+                          ))}
+                        </span>
+                        <p>Rated after delivery</p>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
+          )}
         </div>
       </div>
 

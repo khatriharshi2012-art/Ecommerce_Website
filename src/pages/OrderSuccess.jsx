@@ -9,7 +9,11 @@ const OrderSuccess = () => {
   const navigate = useNavigate();
 
   if (!order) {
-    return <h2 style={{ textAlign: "center", padding: "40px 20px" }}>No order found</h2>;
+    return (
+      <h2 style={{ textAlign: "center", padding: "40px 20px" }}>
+        No order found
+      </h2>
+    );
   }
 
   return (
@@ -26,7 +30,8 @@ const OrderSuccess = () => {
           <p className="success-order-label">Order ID</p>
           <h2>{order.id}</h2>
           <p>
-            A confirmation has been sent to <strong>{order.customer.email}</strong>
+            A confirmation has been sent to{" "}
+            <strong>{order.customer.email}</strong>
           </p>
         </div>
 
@@ -76,7 +81,8 @@ const OrderSuccess = () => {
             </p>
             <p>{order.customer.address}</p>
             <p>
-              {order.customer.city}, {order.customer.state} - {order.customer.postalCode}
+              {order.customer.city}, {order.customer.state} -{" "}
+              {order.customer.postalCode}
             </p>
             <p>{order.customer.country}</p>
             <p>{order.customer.phone}</p>
@@ -90,9 +96,13 @@ const OrderSuccess = () => {
             className="success-btn primary"
             onClick={() => navigate(`/order-tracking/${order.id}`)}
           >
-            Track Your Order <span>{"\u2192"}</span>
+            Track Your Order <span>→</span>
           </button>
-          <button type="button" className="success-btn" onClick={() => navigate("/")}>
+          <button
+            type="button"
+            className="success-btn"
+            onClick={() => navigate("/everything")}
+          >
             Continue Shopping
           </button>
         </div>

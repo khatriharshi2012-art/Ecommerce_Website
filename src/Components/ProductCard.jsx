@@ -3,12 +3,14 @@ import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
 import { formatPrice, getPrimaryImage } from "../utils/format";
 import useRequireAuth from "../hooks/useRequireAuth";
+import { useNotification } from "../context/NotificationContext";
 import "./components.css";
 
 const ProductCard = ({ product }) => {
   const { addToCart } = useCart();
   const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
-  const { user, requireAuth } = useRequireAuth();
+  const { requireAuth } = useRequireAuth();
+  const { notify } = useNotification();
   const navigate = useNavigate();
 
   const isWishlisted = wishlist.some((p) => p._id === product._id);
@@ -26,12 +28,12 @@ const ProductCard = ({ product }) => {
 
     if (isWishlisted) {
       removeFromWishlist(product._id);
-      alert("Product removed from wishlist.");
+      notify("Product removed from wishlist.");
       return;
     }
 
     addToWishlist(product);
-    alert("Product added to wishlist.");
+    notify("Product added to wishlist.");
   };
 
   const handleAddToCart = (e) => {
@@ -41,7 +43,7 @@ const ProductCard = ({ product }) => {
     }
 
     addToCart(product, product.sizes?.[0] || "M", 1);
-    alert("Product added to cart.");
+    notify("Product added to cart.");
   };
 
   const handleViewDetails = (e) => {
@@ -66,7 +68,11 @@ const ProductCard = ({ product }) => {
               </button>
 
               <button className="wishlist-btn" onClick={handleWishlist}>
-                {isWishlisted ? "♥" : "♡"}
+                {isWishlisted ? (
+                  <i className="fa-solid fa-heart"></i>
+                ) : (
+                  <i className="fa-regular fa-heart"></i>
+                )}
               </button>
 
               <button className="details-btn" onClick={handleViewDetails}>
@@ -76,12 +82,12 @@ const ProductCard = ({ product }) => {
           </div>
         </div>
 
-         <div className="latest-info">
-              <h4>{product.name}</h4>
-              <p className="category">
-                {product.category} / {product.subCategory}
-              </p>
-              <p className="price">{formatPrice(product.price)}</p>
+        <div className="latest-info">
+          <h4>{product.name}</h4>
+          <p className="category">
+            {product.category} / {product.subCategory}
+          </p>
+          <p className="price">{formatPrice(product.price)}</p>
         </div>
       </Link>
     </div>

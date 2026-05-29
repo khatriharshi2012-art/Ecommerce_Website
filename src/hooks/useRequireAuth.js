@@ -1,8 +1,10 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useNotification } from "../context/NotificationContext";
 
 const useRequireAuth = () => {
   const { user } = useAuth();
+  const { notify } = useNotification();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -11,7 +13,7 @@ const useRequireAuth = () => {
   ) => {
     if (user) return true;
 
-    alert(message);
+    notify(message, "error");
     navigate("/login", {
       state: {
         from: {

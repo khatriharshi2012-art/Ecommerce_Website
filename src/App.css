@@ -1,4 +1,4 @@
-.button{
+.button {
   background-color: white;
   color: black;
   border: 1px solid white;
@@ -6,17 +6,19 @@
   font-size: 14px;
   font-weight: bold;
   letter-spacing: 1px;
-  transition: 0.4s all ease-in-out;
+  transition: 0.25s all ease-in-out;
   margin-right: 20px;
 }
 
-.button:hover{
+.button:hover {
   background-color: black;
   color: white;
   border: 1px solid black;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
 }
 
-.button-2{
+.button-2 {
   background-color: transparent;
   color: white;
   border: 1px solid white;
@@ -24,38 +26,41 @@
   font-size: 14px;
   font-weight: bold;
   letter-spacing: 1px;
-  transition: 0.4s all ease-in-out;
+  transition: 0.25s all ease-in-out;
 }
 
-.button-2:hover{
+.button-2:hover {
   background-color: white;
   color: black;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(255, 255, 255, 0.22);
 }
 
-.backgroundImg{
-  background-image:linear-gradient(180deg, #0084d69e -50%, rgba(0, 0, 0, 0.318) 100%), url(/img/36.jpg);
+.backgroundImg {
+  background-image:
+    linear-gradient(180deg, #0084d69e -50%, rgba(0, 0, 0, 0.318) 100%),
+    url(/img/36.jpg);
   background-position: center;
   background-size: cover;
   min-height: 790px;
   background-attachment: fixed;
 }
 
-
 /*Home Header */
 
-.header{
+.header {
   padding: clamp(7rem, 10vw, 10rem) 0 3rem 60px;
   color: white;
 }
 
-.header *{
+.header * {
   margin-block: 22px;
 }
 
 /* Home section 1 */
 
-.backgroundImg2{
-  background-image: linear-gradient(rgba(0, 0, 0, 0.421)),url(/img/dnk.jpg);
+.backgroundImg2 {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.421)), url(/img/dnk.jpg);
   background-position: center right;
   background-size: cover;
   height: 480px;
@@ -65,8 +70,8 @@
   color: white;
 }
 
-.backgroundImg3{
-  background-image:  linear-gradient(rgba(0, 0, 0, 0.421)),url(/img/dnk1.jpg);
+.backgroundImg3 {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.421)), url(/img/dnk1.jpg);
   background-position: center left;
   background-size: cover;
   height: 480px;
@@ -76,7 +81,7 @@
   color: white;
 }
 
-.backgroundImg4{
+.backgroundImg4 {
   background-image: linear-gradient(rgba(0, 0, 0, 0.421)), url(/img/dnk2.jpg);
   background-position: center right;
   background-size: cover;
@@ -87,22 +92,22 @@
   color: white;
 }
 
-.blue-div{
+.blue-div {
   width: 100px;
   height: 3px;
   background-color: #0084d6;
   margin: auto;
 }
 
-.padding{
+.padding {
   padding: 60px 80px;
 }
 
-
 /* Home Section 2 */
 
-.backgroundImg5{
-  background-image:linear-gradient(100deg, #0084D6 0%, #00000000 100%), url(/img/37.jpg);
+.backgroundImg5 {
+  background-image:
+    linear-gradient(100deg, #0084d6 0%, #00000000 100%), url(/img/37.jpg);
   background-position: center right;
   background-size: cover;
   background-attachment: fixed;
@@ -111,43 +116,43 @@
   align-content: center;
 }
 
-.img-size{
+.img-size {
   width: 52px;
-  margin: auto
+  margin: auto;
 }
 
 /* Footer */
 
-.padding-footer{
-  padding: 40px 80px; 
+.padding-footer {
+  padding: 40px 80px;
 }
 
-.padding-footer p{
+.padding-footer p {
   margin: 0;
 }
 
-.footer-border{
+.footer-border {
   border-top: 1px solid black;
 }
 
-.padding a{
+.padding a {
   text-decoration: none;
   color: black;
 }
 
-.padding a:hover{
+.padding a:hover {
   color: #0075be;
 }
 
-.padding a p{
+.padding a p {
   margin: 10px 0;
 }
 
-h5{
+h5 {
   font-weight: 600;
 }
 
-.pad{
+.pad {
   padding: 80px 200px 20px;
 }
 
@@ -200,6 +205,14 @@ h5{
 }
 
 @media (max-width: 767px) {
+  .gap {
+    row-gap: 20px;
+  }
+
+  .container-p{
+    padding: 0;
+  }
+
   .button,
   .button-2 {
     width: 100%;
@@ -255,6 +268,10 @@ h5{
 }
 
 @media (max-width: 575px) {
+  .gap {
+    row-gap: 20px;
+  }
+
   .backgroundImg {
     min-height: 600px;
   }
