@@ -54,7 +54,7 @@ const ProductDetailsContent = ({ id }) => {
       (p) =>
         p.category === product.category &&
         p.subCategory === product.subCategory &&
-        p._id !== product._id
+        p._id !== product._id,
     )
     .slice(0, 4);
 
@@ -102,9 +102,7 @@ const ProductDetailsContent = ({ id }) => {
                 <button
                   key={size}
                   className={
-                    selectedSize === size
-                      ? "size-btn selected"
-                      : "size-btn"
+                    selectedSize === size ? "size-btn selected" : "size-btn"
                   }
                   onClick={() => setSelectedSize(size)}
                 >
@@ -128,7 +126,9 @@ const ProductDetailsContent = ({ id }) => {
           <button
             className="add-to-cart-btn"
             onClick={() => {
-              if (!requireAuth("Please login first to add products to your cart.")) {
+              if (
+                !requireAuth("Please login first to add products to your cart.")
+              ) {
                 return;
               }
 
@@ -175,27 +175,18 @@ const ProductDetailsContent = ({ id }) => {
                       {[1, 2, 3, 4, 5].map((star) => (
                         <i
                           key={star}
-                          className={star <= Math.round(averageRating) ? "is-filled" : ""}
+                          className={
+                            star <= Math.round(averageRating) ? "is-filled" : ""
+                          }
                         >
                           {"\u2605"}
                         </i>
                       ))}
                     </span>
-                    <small>{productReviews.length} rating{productReviews.length > 1 ? "s" : ""}</small>
-                  </div>
-                  <div className="review-list">
-                    {productReviews.map((review) => (
-                      <div key={review.id} className="review-item">
-                        <span>
-                          {[1, 2, 3, 4, 5].map((star) => (
-                            <i key={star} className={star <= review.rating ? "is-filled" : ""}>
-                              {"\u2605"}
-                            </i>
-                          ))}
-                        </span>
-                        <p>Rated after delivery</p>
-                      </div>
-                    ))}
+                    <small>
+                      {productReviews.length} rating
+                      {productReviews.length > 1 ? "s" : ""}
+                    </small>
                   </div>
                 </>
               )}

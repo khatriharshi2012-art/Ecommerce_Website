@@ -237,6 +237,17 @@ const Checkout = () => {
       return;
     }
 
+    if (paymentMethod === "cod") {
+      window.clearTimeout(paymentTimerRef.current);
+      showNotice("Cash on Delivery order confirmed.");
+      completeOrder({
+        status: "Cash on Delivery",
+        id: `cod_${Date.now()}`,
+        provider: "COD",
+      });
+      return;
+    }
+
     setPaymentStage("form");
     setPaymentModalOpen(true);
   };
@@ -263,9 +274,9 @@ const Checkout = () => {
     window.clearTimeout(paymentTimerRef.current);
     paymentTimerRef.current = window.setTimeout(() => {
       const paymentInfo = {
-        status: paymentMethod === "cod" ? "Cash on Delivery" : "Paid",
+        status: "Paid",
         id: `pay_fake_${Date.now()}`,
-        provider: paymentMethod === "cod" ? "COD" : "Fake Razorpay",
+        provider: paymentMethod === "stripe" ? "Fake Stripe" : "Fake Razorpay",
       };
 
       setPaymentStage("success");

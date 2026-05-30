@@ -169,7 +169,7 @@ const OrderTracking = () => {
                   })}
                 </div>
               ) : (
-                <button type="button" onClick={() => navigate("/orders")}>
+                <button className="btn-track" type="button" onClick={() => navigate("/orders")}>
                   View Details
                 </button>
               )}

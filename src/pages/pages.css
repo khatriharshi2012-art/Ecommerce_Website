@@ -577,6 +577,10 @@ textarea {
   align-items: center;
 }
 
+.address-summary p {
+  margin: 0;
+}
+
 .edit-btn {
   background: transparent;
   color: #0075be;
@@ -1183,6 +1187,10 @@ textarea {
   margin: 0 0 14px;
   font-size: 1.05rem;
   color: #111827;
+}
+
+.success-panel p {
+  margin: 0 ;
 }
 
 .success-item {
@@ -2714,6 +2722,14 @@ textarea {
   color: #0f172a;
 }
 
+.btn-track {
+  background-color: #0084d6;
+  color: white;
+  outline: none;
+  border: 1px solid #0084d6;
+  padding: 10px;
+}
+
 .tracking-help button,
 .tracking-order-summary > button,
 .copy-track-btn,
@@ -2908,11 +2924,6 @@ textarea {
 
 .tracking-alert strong {
   color: #0f172a;
-}
-
-.tracking-alert button {
-  color: #0075be;
-  border-color: #93c5fd;
 }
 
 .tracking-rating-panel {
@@ -3432,7 +3443,7 @@ textarea:focus-visible {
     padding: 24px 18px;
   }
 
-    .tracking-main {
+  .tracking-main {
     flex: 1;
     min-width: 100%;
   }
@@ -3449,7 +3460,7 @@ textarea:focus-visible {
     margin-top: 10px;
   }
 
-    .tracking-main {
+  .tracking-main {
     flex: 1;
     min-width: 100%;
   }
